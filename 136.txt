@@ -1,0 +1,46 @@
+class Solution {
+    public int singleNumber(int[] nums) {
+        Map<Integer,Integer> map=new HashMap();
+        for(int i=0;i<nums.length;i++){
+            if(map.containsKey(nums[i])){
+                //System.out.println(nums[i] + " " + map.get(nums[i]));
+                map.put(nums[i], map.get(nums[i]) + 1);
+                
+            }else{
+                 map.put(nums[i], 1);
+            }                                                                              
+        }
+        
+        Iterator iterator = map.keySet().iterator();
+  
+        while (iterator.hasNext()) {
+           Integer key = (Integer)iterator.next();
+           Integer value = (Integer)map.get(key);
+           if(value==1){return key;}
+           //System.out.println(key + " " + value);
+        }
+        return 0;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+class Solution {
+    public int singleNumber(int[] nums) {
+        int res = 0;
+        for(int i = 0 ; i < nums.length ; ++i){
+           // System.out.println(res);
+            res ^= nums[i];
+        }
+        return res;
+    }
+}
