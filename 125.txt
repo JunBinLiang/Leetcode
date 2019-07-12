@@ -1,0 +1,29 @@
+class Solution {
+    public boolean isPalindrome(String s) {
+        if(s.length()==0){return true;}
+        if(s.length()==1){return true;}
+        
+        int counter=0;
+        String lower=s.toLowerCase();
+       // System.out.print(lower);
+        char[] arr=lower.toCharArray();
+        //List<Character>list=new LinkedList();
+        for(int i=0;i<arr.length;i++){
+           if(!Character.isLetter(arr[i])&&!Character.isDigit(arr[i])){
+               continue;
+           } 
+             //System.out.print("ok");
+           arr[counter++]=arr[i];
+        }
+      //  System.out.print(counter);
+        for(int i=0;i<counter/2;i++){
+           // System.out.print(arr[i]);
+            //System.out.print(arr[counter-1-i]);
+             if(arr[i]!=arr[counter-1-i])
+                {return false;}
+         } 
+        
+        return true;
+        
+    }
+}

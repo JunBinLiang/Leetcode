@@ -1,0 +1,104 @@
+class Solution {
+    private List<Integer> result;
+   
+    public int minimumTotal(List<List<Integer>> triangle) {
+        if(triangle.size()==1){
+            return triangle.get(0).get(0);
+        }
+        
+        result=new LinkedList();
+        int min=0;
+        int sum=triangle.get(0).get(0);
+        
+        int pos=0;//start as zero, mandatory 
+        int startLevel=2;
+        helper(triangle,startLevel,pos,sum);
+        for(int i=0;i<result.size();i++){
+            if(i==0){min=result.get(0);continue;}
+            if(min>result.get(i)){
+                min=result.get(i);
+            }
+            
+        }
+        return min;
+    
+    
+    }
+    
+    public void helper(List<List<Integer>> triangle,int level,int position,int sum){
+        if(level==triangle.size()){
+            //at the bottom, last level
+            if(level==2){
+                 int position1=position;
+                 int position2=position+1;
+                 int num1=triangle.get(level-1).get(position1);
+                 int num2=triangle.get(level-1).get(position2);
+                 //System.out.print(num1);System.out.print(num2);
+                 if(num1<num2){
+                    result.add(sum+num1);
+                 }else{
+                    result.add(sum+num2);
+                 }
+                return;
+                
+            }
+            //System.out.println(sum);
+            //System.out.println(sum+triangle.get(level-1).get(position));
+            
+                 int position1=position;
+                 int position2=position+1;
+                 int num1=triangle.get(level-1).get(position1);
+                 int num2=triangle.get(level-1).get(position2);
+                 //System.out.print(num1);System.out.print(num2);
+                 if(num1<num2){
+                    result.add(sum+num1);
+                 }else{
+                    result.add(sum+num2);
+                 }
+            
+                 return;
+                
+        }
+            int position1=position;
+            int position2=position+1;
+            int copySum1=sum+triangle.get(level-1).get(position1);
+            int copySum2=sum+triangle.get(level-1).get(position2);
+            helper(triangle,level+1,position1,copySum1);
+            helper(triangle,level+1,position2,copySum2);  
+    }   
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class Solution {
+    public int minimumTotal(List<List<Integer>> triangle) {
+        int row=triangle.size();
+        if(row==0)
+            return 0;
+        int[] dp=new int[row];
+        for(int i=0;i<row;i++){
+            dp[i]=triangle.get(row-1).get(i);
+        }
+        //i????
+        for(int i=row-2;i>=0;i--){
+            List<Integer> list=triangle.get(i);
+            for(int j=0;j<=list.size()-1;j++){
+        //j????
+                dp[j]=list.get(j)+Math.min(dp[j],dp[j+1]);
+            }
+        }
+        return dp[0];
+    }
+}
