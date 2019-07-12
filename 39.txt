@@ -1,0 +1,38 @@
+class Solution {
+    private List<List<Integer>> result=new LinkedList();
+    private int myTarget;
+    
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        myTarget=target;
+        for(int i=0;i<candidates.length;i++){
+           
+            helper(candidates,i,target,null);
+        }
+        return result;
+    }
+    
+    
+    
+    
+    
+    
+    public void helper(int[] candidates,int index,int target,List<Integer> list)
+    {
+        
+        if(target==0){if(result.contains(list)){return;}result.add(list); return;}
+        if(target<0){ return;}
+        if(list==null){list=new LinkedList();}
+       
+        for(int i=index;i<candidates.length;i++){
+            
+             
+            if(target-candidates[i]>=0){
+                //System.out.println(candidates[i]);
+                List<Integer> copy=new LinkedList(list);
+                copy.add(candidates[i]);
+                helper(candidates,i,target-candidates[i],copy);
+            }
+        }
+    }
+    
+}

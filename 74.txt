@@ -1,0 +1,134 @@
+class Solution {
+    private boolean finalResult;
+    //private int counter=0;  //the position of thw word
+    int [][] path;
+    
+    public boolean exist(char[][] board, String word) {
+        int numRows=board.length;
+        int numCols=board[0].length;
+        char[] wordsArray=word.toCharArray();
+        int wordLength=wordsArray.length; 
+        
+         path=new int[numRows][numCols];
+        //pathTozero(path);
+         
+        
+        
+        for(int row=0;row<numRows;row++){
+            for(int col=0;col<numCols;col++){
+                pathTozero(path);
+                if(board[row][col]==wordsArray[0])
+                {
+                    //counter++;
+                    path[row][col]=1;
+                    helper(row,col,board,wordsArray,1);
+                    
+                    if(this.finalResult){
+                        return true;
+                    }
+                    
+                    
+                }
+            }
+        }
+        
+        
+        return false;
+    }
+    public void helper(int row,int col, char[][] board,char[]wordsArray,int counter){
+        // 4 possible  :  UP   DOWN   LEFT  RIGHT
+        
+        //current row 
+        //current col
+        
+        //System.out.println(counter);
+        //System.out.println(row);
+        //System.out.println(col);
+        //System.out.println("...................");
+        if(counter==wordsArray.length){this.finalResult=true;return;}
+        
+        
+        System.out.println("counter");System.out.println(counter);System.out.println(wordsArray[counter]);
+       // System.out.println("oooooooooooo");
+        //UP
+        if(
+             ((row-1)>=0&&(row-1)<board.length) && (col>=0&&col<board[0].length)&&   
+             board[row-1][col]==wordsArray[counter]  && path[row-1][col]!=1 ){
+            
+            if(counter+1==wordsArray.length){ System.out.println("true1");this.finalResult= true;return;}
+            //counter++;
+            path[row-1][col]=1;
+            helper(row-1,col,board,wordsArray,counter+1);
+            //if(result){return true;}
+            if(this.finalResult){return;}
+        }
+        
+       
+        
+        // DOWN
+         if(
+                ((row+1)>=0&&(row+1)<board.length) && (col>=0&&col<board[0].length)&&
+                board[row+1][col]==wordsArray[counter]&& path[row+1][col]!=1
+                
+                ){
+            if(counter+1==wordsArray.length){ System.out.println("true2");this.finalResult= true;return;}
+            //counter++;
+            path[row+1][col]=1;
+           helper(row+1,col,board,wordsArray,counter+1);
+           if(this.finalResult){return;}
+            //if(result){System.out.println("true2");return true;}
+        }
+
+        
+        
+        //Right
+        
+         if(
+                ((row)>=0&&(row)<board.length)&& (col+1>=0&&col+1<board[0].length)&&
+                board[row][col+1]==wordsArray[counter]  && path[row][col+1]!=1
+                
+                ){
+            if(counter+1==wordsArray.length){ System.out.println("true3");this.finalResult=true;return;}
+            //counter++;
+            path[row][col+1]=1;
+            helper(row,col+1,board,wordsArray,counter+1);
+            if(this.finalResult){return;}
+        }
+        
+        
+        
+        //LEFT
+         if(
+                ((row)>=0&&(row)<board.length)&& (col-1>=0&&col-1<board[0].length)&&
+                board[row][col-1]==wordsArray[counter]&&
+                path[row][col-1]!=1
+                
+                ){
+            if(counter+1==wordsArray.length){ System.out.println("true4");this.finalResult=true;return;}
+            path[row][col-1]=1;
+           // counter++;
+           helper(row,col-1,board,wordsArray,counter+1);
+            //if(result){return true;}
+           if(this.finalResult){return;}
+        }
+        
+            path[row][col]=0;
+           
+            //this.counter=0;
+            //System.out.println("set false");
+            this.finalResult=false;
+            return;
+        
+        
+        
+        
+    }    
+    
+    public void pathTozero(int[][] path){
+        for(int row=0;row<path.length;row++){
+            for(int col=0;col<path[0].length;col++){
+                path[row][col]=0;
+            }
+        }
+    }
+}

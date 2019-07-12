@@ -1,0 +1,81 @@
+class Solution {
+    public int myAtoi(String str) {
+        //0 1 2 3 4 5 6 7 8 9
+        boolean minus=false; boolean positive=false;
+        int pocounter=0;int necounter=0;
+        char[] result=new char[str.length()];
+        int counter=0;
+        char[] arr=str.toCharArray();
+        if(str.length()==0){return 0;}
+        
+        if(arr[0]=='-'){
+            minus=true;
+        }
+            
+        for(int i=0;i<arr.length;i++){
+            if(arr[i]==' '){
+                if(counter!=0){break;}
+                if(minus||positive){break;}
+                continue;}
+            
+            if(arr[i]=='-'&&counter==0){
+               minus=true;
+                necounter++;
+                continue;
+              }
+             if(arr[i]=='+'&&counter==0){
+                positive=true;
+                pocounter++;
+                continue;
+              }
+             if(pocounter>1||necounter>1){return 0;}
+            
+             if(arr[i]=='0'&&counter==0){
+                 if(i+1<arr.length){
+                            if(arr[i+1]!='0'&&arr[i+1]!='1'&&arr[i+1]!='2'&&arr[i+1]!='3'&&arr[i+1]!='4'&&
+                                arr[i+1]!='5'&&arr[i+1]!='6'&&arr[i+1]!='7'&&arr[i+1]!='8'&&arr[i+1]!='9'){
+                                return 0;
+                            }
+                 }
+                continue;
+              }
+        
+            if(arr[i]!='0'&&arr[i]!='1'&&arr[i]!='2'&&arr[i]!='3'&&arr[i]!='4'&&
+              arr[i]!='5'&&arr[i]!='6'&&arr[i]!='7'&&arr[i]!='8'&&arr[i]!='9'){
+                break;
+            }
+            
+            //System.out.println(i);
+            result[counter++]=arr[i];
+            if(counter>15){break;}
+            
+        }
+        char[] trueResult=new char[counter];
+        for(int k=0;k<counter;k++){
+            trueResult[k]=result[k];
+        }
+        //System.out.print(positive);System.out.print(minus);
+        if(counter==0){return 0;}
+        if(positive&&minus){return 0;}
+        
+        
+        
+        if(trueResult[0]=='0'){return 0;}
+        
+        
+        
+        String answer=new String(trueResult);
+        
+        
+       
+        
+        long num = Long.parseLong(answer); 
+        if(minus){num=num*-1;}
+        if(num>=Integer.MAX_VALUE){return Integer.MAX_VALUE;}
+        if(num<=Integer.MIN_VALUE){return Integer.MIN_VALUE;}
+        if(minus){
+            return 0-Integer.parseInt(answer);
+        }
+        return Integer.parseInt(answer);
+    }
+}

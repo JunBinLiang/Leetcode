@@ -1,0 +1,97 @@
+class Solution {
+    public List<List<Integer>> threeSum(int[] nums) {
+        List<List<Integer>> result=new  LinkedList();
+        Arrays.sort(nums);
+        for(int i=0;i<nums.length;i++){
+           
+            
+            
+            int twosum=0-nums[i];
+            Map<Integer, Integer> map = new HashMap<>();
+            for(int j=i+1;j<nums.length;j++){
+                //System.out.println(j);
+                int complement = twosum - nums[j];
+                if(map.containsKey(complement)){
+                    List<Integer> individual=new LinkedList();
+                    individual.add(nums[i]);
+                    individual.add(nums[map.get(complement)]);
+                    individual.add(nums[j]);
+                    
+                    
+                    
+                    if(!result.contains(individual)){result.add(individual);}
+                    
+                }else{
+                    map.put(nums[j], j);
+                }
+                
+            }
+            if(i+1<nums.length){
+              if(nums[i]==nums[i+1]){continue;}
+            }
+            
+        }
+        return result;
+    
+    }
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//improve version, o(n^2)
+
+class Solution {
+    public List<List<Integer>> threeSum(int[] nums) {
+        List<List<Integer>> result=new  LinkedList();
+        Arrays.sort(nums);
+       // individual.add(1);
+        //individual.clear();
+        //System.out.println(individual.get(0));
+        
+        for(int i=0;i<nums.length;i++){
+            int twosum=0-nums[i];
+            Map<Integer, Integer> map = new HashMap<>();
+            for(int j=i+1;j<nums.length;j++){
+                //System.out.println(j);
+                int complement = twosum - nums[j];
+                if(map.containsKey(complement)){
+                    List<Integer> individual=new LinkedList();
+                    individual.add(nums[i]);
+                    individual.add(nums[map.get(complement)]);
+                    individual.add(nums[j]);
+                    
+                    
+                    
+                    if(!result.contains(individual)){result.add(individual);}
+                    else{individual=null;}
+                  
+                    
+                }else{
+                    map.put(nums[j], j);
+                }
+                
+            }
+            
+              while(i+1<nums.length&&nums[i]==nums[i+1]){
+                  i++;
+              }
+            
+            
+        }
+        return result;
+    
+    }
+    
+}

@@ -1,0 +1,54 @@
+class Solution {
+    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+        //merge two array into one
+        int[] merge=new int[nums1.length+nums2.length];
+        int counter1=0;int counter2=0; int counterM=0;
+        
+        
+        while(counter1<nums1.length&&counter2<nums2.length){
+           
+            if(nums1[counter1]<nums2[counter2]){
+                merge[counterM++]=nums1[counter1++];
+                
+            }else{
+                merge[counterM++]=nums2[counter2++];
+            }
+        }
+        while(counter1<nums1.length){
+             merge[counterM++]=nums1[counter1++];
+        }
+        
+         while(counter2<nums2.length){
+             merge[counterM++]=nums2[counter2++];
+        }
+        for(int i=0;i<merge.length;i++){
+            System.out.print(merge[i]);
+        }
+        
+        if(merge.length%2==1){
+            return  Double.valueOf(merge[merge.length/2]);
+        }
+        
+        return ( Double.valueOf(merge[merge.length/2])+ Double.valueOf(merge[merge.length/2-1]) )/2;
+        
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+var findMedianSortedArrays = function(nums1, nums2) {
+    const mergeSort = [...nums1, ...nums2].sort((a, b) => a - b)
+    
+    return mergeSort.length % 2 === 0 ?
+        (mergeSort[mergeSort.length / 2 - 1] + mergeSort[mergeSort.length / 2]) / 2 :
+        mergeSort[Math.floor(mergeSort.length / 2)]
+};

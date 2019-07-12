@@ -1,0 +1,27 @@
+class Solution {
+    public int reverse(int x) {
+        if(x==0){return 0;}
+        String str = Integer.toString(x); boolean negative=false;
+        boolean isZero=true;
+        String reverse="";
+        //long zero=0;
+        if(x<0){
+             str=str.substring(1,str.length());
+             negative=true;
+        }
+        // System.out.println(str);
+        
+        
+        for(int i = str.length() - 1; i >= 0; i--)
+        {
+            if(Character.getNumericValue(str.charAt(i))==0&&isZero){continue;}
+            isZero=false;
+            reverse = reverse + str.charAt(i);
+        }
+        System.out.println("reverse");
+        System.out.println(Long.parseLong(reverse));
+       if(Long.parseLong(reverse)>Integer.MAX_VALUE) {return 0;}
+        if(negative){return  (int) (0 -Long.parseLong(reverse));}
+        return (int) Long.parseLong(reverse);
+    }
+}
