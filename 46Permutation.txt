@@ -28,3 +28,36 @@ class Solution {
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var permute = function(nums) {
+    let output = [];
+    function backtrack(arr,dArray){
+        if(arr.length==nums.length){
+            output.push(arr)
+            return
+        }
+        for(let i=0; i<dArray.length;i++){                 
+            //increase output arr and reduce work on every recursion call
+    backtrack(arr.concat(dArray[i]),dArray.filter((val)=>{return val!=dArray[i]}));
+            }
+    }
+backtrack([],nums)
+return output;
+};
