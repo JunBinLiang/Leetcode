@@ -1,0 +1,136 @@
+class Solution {
+    public int[][] generateMatrix(int n) {
+        
+        if(n==0){
+            return null;
+        }
+        
+        int arr[][]=new int[n][n];
+        for(int row=0;row<n;row++){
+            for(int col=0;col<n;col++){
+                arr[row][col]=0;
+            }
+        }//all set to zero
+        arr[0][0]=1;
+        if(n==1){
+            return arr;
+        }
+        int counter=2; int row=0;int col=0; int step=1;
+        char direction='R';
+        // How Direction change
+        // Right Down Left Up
+        while(counter<=n*n){
+            if(direction=='R'){
+           // System.out.println("Step: "+step+"Counter :"+counter+"Row: "+row+"Col"+col );
+                
+                if(col+step>n-1){
+                    
+                    // update col and row position
+                    row=row; 
+                    col=col+step-1;
+                    direction='D';
+                    step=1;  // reset step
+                    continue; 
+                }
+                
+                if(arr[row][col+step]!=0){
+                    
+                    // update col and row position
+                    row=row; 
+                    col=col+step-1;
+                    direction='D';
+                    step=1;  // reset step
+                    continue; 
+                }
+                
+                arr[row][col+step++]=counter++;
+                continue;
+            } 
+            //finish
+            
+            if(direction=='D'){
+           // System.out.println("Step: "+step+"Counter :"+counter+"Row: "+row+"Col"+col );
+                if(row+step>n-1){
+                    
+                    // update col and row position
+                    row=row+step-1; 
+                    col=col;
+                    direction='L';
+                    step=1;  // reset step
+                    continue; 
+                }
+                
+                if(arr[row+step][col]!=0){
+                    
+                    // update col and row position
+                    row=row+step-1; 
+                    col=col;
+                    direction='L';
+                    step=1;  // reset step
+                    continue; 
+                }
+                
+                arr[row+step++][col]=counter++;
+                continue;
+            }
+            //finish
+            
+            
+            if(direction=='L'){
+           // System.out.println("Step: "+step+"Counter :"+counter+"Row: "+row+"Col"+col );   
+                if(col-step<0){
+                    //step=1;  // reset step
+                    // update col and row position
+                    row=row; 
+                    col=col-step+1;
+                    direction='U';
+                    step=1;  // reset step
+                    continue; 
+                }
+                
+                if(arr[row][col-step]!=0){
+                    //step=1;  // reset step
+                    // update col and row position
+                    row=row; 
+                    col=col-step+1;
+                    direction='U';
+                    step=1;  // reset step
+                    continue; 
+                }
+                arr[row][col-step++]=counter++;
+                continue;
+            }
+            //finish
+            
+            
+            if(direction=='U'){
+            // System.out.println("Step: "+step+"Counter :"+counter+"Row: "+row+"Col"+col );    
+                if(row-step<0){
+                    //step=1;  // reset step
+                    // update col and row position
+                    row=row-step+1; 
+                    col=col;
+                    direction='R';
+                    step=1;  // reset step
+                    continue; 
+                }
+                
+                if(arr[row-step][col]!=0){
+                    //step=1;  // reset step
+                    // update col and row position
+                    row=row-step+1; 
+                    col=col;
+                    direction='R';
+                    step=1;  // reset step
+                    continue; 
+                }
+                arr[row-step++][col]=counter++;
+                continue;
+            }
+            //    
+        }//while o(n^2)
+         
+        
+        return arr;
+    }
+}
