@@ -1,0 +1,53 @@
+class Solution {
+    private List<List<Integer>> result=new LinkedList();
+   
+    public List<List<Integer>> combinationSum2(int[] candidates, int target) {
+       Arrays.sort(candidates);
+        for(int i=0;i<candidates.length;i++){
+            helper(candidates,null,null,target,i);
+        }
+        
+        return result;
+    }
+    
+    private void helper(int[] nums,List<Integer>keylist,List<Integer>valuelist,int target,int index){
+        if(target==0)
+        {
+         
+            if(!result.contains(valuelist)){
+                result.add(valuelist);
+            }
+            return;
+            
+        }
+        if(target<0){
+            return;
+        }
+        if(keylist==null){
+            keylist=new LinkedList();
+            valuelist=new LinkedList();
+        }
+        
+        for(int i=index;i<nums.length;i++){
+            if(target-nums[i]<0){
+                continue;
+            }
+            if(keylist.contains(i)){
+                //that index has been used
+                continue;
+            }
+            
+            List<Integer>copykey=new LinkedList(keylist);
+            List<Integer>copyvalue=new LinkedList(valuelist);
+            copykey.add(i);
+            copyvalue.add(nums[i]);
+            
+            helper(nums,copykey,copyvalue,target-nums[i],i);
+           // break;
+        }
+        
+        
+        
+        
+    }
+}
