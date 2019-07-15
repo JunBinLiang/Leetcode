@@ -1,0 +1,126 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    private List<List<Integer>> result=new LinkedList();
+    private List<Integer>list=new LinkedList();
+    Queue<TreeNode> queue = new LinkedList<>(); 
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        if(root==null){
+            return null;
+        }
+       // System.out.println(result.size());
+        queue.add(root);
+       // queue.add(null);
+        //System.out.println(queue.size());
+       
+        
+        while(queue.size()!=0){
+            TreeNode ele=queue.remove();
+            if(ele!=null){
+                queue.add(ele.left);
+                queue.add(ele.right);
+                list.add(ele.val);
+            }
+            else{
+                //a null node
+               
+                continue;
+            }
+            
+        }
+        
+        result.add(list);
+        return result;
+    }
+}
+//not the answer yet, lack the level
+// general in level order traversal
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+
+import javafx.util.Pair; 
+
+//pair need to be imported in leetcode
+class Solution {
+    private List<List<Integer>> result=new LinkedList();
+   // private List<Integer>list=new LinkedList();
+    Queue<Pair<TreeNode,Integer>> queue = new LinkedList<>(); 
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        if(root==null){
+            return new LinkedList();
+        }
+       // System.out.println(result.size());
+        queue.add(new Pair<TreeNode,Integer>(root,1));
+       // queue.add(null);
+        //System.out.println(queue.size());
+       
+        
+        while(queue.size()!=0){
+            Pair<TreeNode,Integer> queueElement=queue.remove();
+            TreeNode ele=queueElement.getKey();
+            int level=queueElement.getValue();
+            if(ele!=null){
+                if(result.size()<level){
+                    List<Integer> list=new LinkedList();
+                    list.add(ele.val);
+                    result.add(list);
+                    queue.add(new Pair<TreeNode,Integer>(ele.left,level+1));
+                    queue.add(new Pair<TreeNode,Integer>(ele.right,level+1));
+                    
+                }else{
+                    result.get(level-1).add(ele.val);
+                    queue.add(new Pair<TreeNode,Integer>(ele.left,level+1));
+                    queue.add(new Pair<TreeNode,Integer>(ele.right,level+1));
+                    
+                }
+                
+            }
+            else{
+                //a null node
+               
+                continue;
+            }
+            
+        }
+        
+       
+        return result;
+    }
+}
+
+
+
+
+
