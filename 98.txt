@@ -1,0 +1,63 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    private HashSet<Integer> set=new HashSet();
+    private boolean result=true;
+    private TreeNode treeRoot;
+    public boolean isValidBST(TreeNode root) {
+        treeRoot=root;
+        if(root==null){
+            return true;
+        }
+   
+        //treeRote=root;
+        helper(root);
+        return result;
+    }
+    
+    public void helper(TreeNode targetRoot){ 
+        if(targetRoot==null){
+            return;
+        }
+        if(set.contains(targetRoot.val)){
+            result=false;
+            return;
+        }
+        
+        set.add(targetRoot.val);
+        contains(treeRoot,targetRoot);
+        helper(targetRoot.left);
+        helper(targetRoot.right);
+    }
+    
+    public boolean contains(TreeNode root,TreeNode target){
+        if(root==null){
+            result=false;
+            return false;
+        }
+        
+        if(root.val==target.val){
+            System.out.println(target.val);
+            return true;
+        }
+        
+        if(target.val<root.val){
+           return contains(root.left,target);
+        }
+        
+        if(target.val>root.val){
+           return contains(root.right,target);
+        }
+        
+          return false;
+        
+    }
+    
+}
