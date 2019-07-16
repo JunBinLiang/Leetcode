@@ -1,0 +1,35 @@
+class Solution {
+    private List<List<Integer>> result=new LinkedList();
+    public List<List<Integer>> permuteUnique(int[] nums) {
+        for(int i=0;i<nums.length;i++){
+            List<Integer> list=new LinkedList();
+            List<Integer> indexList=new LinkedList();
+            list.add(nums[i]);
+            indexList.add(i);
+            helper(nums,list,indexList);
+        }
+        return result;
+    }
+    
+    public void helper(int[] nums,List<Integer>list, List<Integer>indexList){
+        
+        if(list.size()==nums.length){
+            if(!result.contains(list)){
+                result.add(list);
+            }
+            return;
+        }
+        
+        for(int i=0;i<nums.length;i++){
+            if(indexList.contains(i)){
+                //should change to index
+                continue;
+            }
+            List<Integer>copyIndexlist=new LinkedList(indexList);
+            copyIndexlist.add(i);
+            List<Integer>  copylist=new LinkedList(list);
+            copylist.add(nums[i]);
+            helper(nums,copylist,copyIndexlist);
+        }
+    }
+}
