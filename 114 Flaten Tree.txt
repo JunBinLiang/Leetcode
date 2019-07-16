@@ -1,0 +1,73 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+import javafx.util.Pair;
+
+class Solution {
+    public void flatten(TreeNode root) {
+       
+        helper(root);
+        
+    }
+    
+    public Pair<TreeNode,TreeNode> helper(TreeNode root){
+         if(root==null){
+             return null;
+         }
+        
+        System.out.println(root.val);
+        if(root.right==null&&root.left==null){
+            return new Pair<TreeNode,TreeNode>(root,root);
+        }
+        //System.out.println("left "+root.left.val);
+        //System.out.println("right "+root.right.val);
+        
+        Pair<TreeNode,TreeNode>left= helper(root.left);
+        Pair<TreeNode,TreeNode>right=helper(root.right);
+        
+       // System.out.println("return left1 "+left.getValue().val);
+       // System.out.println("return left2 "+left.getKey().val);
+       // System.out.println("return right1 "+right.getValue().val);
+       // System.out.println("return right2 "+right.getKey().val);
+        
+        if(left!=null&right!=null){
+                root.left=null;
+                TreeNode temp=root.right;
+                root.right=left.getKey();
+                left.getValue().right=temp;
+        }
+
+        if(left==null){
+            
+        }
+        
+        if(right==null){
+            root.left=null;
+            root.right=left.getKey();
+        }
+        //print(root);
+        TreeNode current=root;
+        
+        while(current.right!=null){
+            current=current.right;
+        }
+        //System.out.println("Final : "+root.val+" "+current.val);
+        return new Pair<TreeNode,TreeNode>(root,current);
+        
+    }
+    
+    public void print(TreeNode root){
+        TreeNode current=root;
+        while(current!=null){
+            System.out.print(current.val+" ");
+            current=current.right;
+        }
+        System.out.println("*********");
+    }
+}
