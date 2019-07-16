@@ -1,0 +1,85 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    private ListNode listHead;
+    public ListNode insertionSortList(ListNode head) {
+        listHead=head;
+        if(head==null||head.next==null){ //1 or zero element, no sorted need
+            return head;
+        }
+        int position=1;
+        
+        ListNode current=head.next;
+        ListNode previous=head;
+        while(current!=null){
+          
+            if(current.val>=previous.val){
+                previous=current;
+                current=current.next;
+                position++;
+                continue;
+            }
+            
+            ListNode temp=current;
+            previous.next=current.next;
+            current=current.next;
+            temp.next=null;
+            //System.out.println(temp.val+"  "+position+"  "+current.val);
+           // print();
+            insert(temp,position); //insert into propriate place
+            position++;
+           // print();
+            
+            
+            
+        }
+        return listHead;
+        
+        
+    }
+    public void insert(ListNode node,int counter){
+        if(node.val<listHead.val){ //insert at the head
+            node.next=listHead;
+            listHead=node;
+            return;
+        }
+        ListNode current=listHead;
+        ListNode previous=null;
+        while(current!=null&&counter!=0){
+            if(node.val<current.val){
+                
+                //System.out.println("confirm"+previous.val+" "+current.val);
+                previous.next=node;
+                node.next=current;
+                return;
+            }
+            previous=current;
+            current=current.next;
+            counter--;
+
+        
+        }
+        //System.out.println("out"+previous.val+"  "+node.val);
+        previous.next=node;
+        node.next=current;
+        //print();
+        
+    }
+    
+    public void print(){
+        ListNode current=listHead;
+        while(current!=null){
+            
+            System.out.print(current.val+" ");
+            current=current.next;
+        }
+        System.out.println();System.out.println();
+    }
+    
+}
