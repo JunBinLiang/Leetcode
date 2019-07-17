@@ -1,0 +1,119 @@
+class Solution {
+    public int maxSubArray(int[] nums) {
+        if(nums.length==1){
+            return nums[0];
+        }
+        
+        List<Integer>list=new LinkedList();
+        int startIndex=nums.length;  int negativeMax=nums[0];
+        for(int i=0;i<nums.length;i++){
+            
+             if(nums[i]<=0){
+                   if(negativeMax<nums[i]){
+                       negativeMax=nums[i];
+                   }
+                   continue;
+             }
+             startIndex=i;
+             break;
+            
+        }
+        int sum=0;
+        if(startIndex==nums.length){
+            //all negative
+            return negativeMax;
+        }
+        //System.out.println("  ss"+startIndex);
+        
+        for(int i=startIndex;i<nums.length;i++){  
+            if(nums[i]<0){
+                list.add(sum);
+                if(nums[i]+sum<0){
+                    sum=0; 
+                    continue;
+                }
+                sum+=nums[i];
+                continue;
+            }
+            sum+=nums[i];
+        }
+        list.add(sum);
+        int max=list.get(0);
+        for(int i=0;i<list.size();i++){
+            if(max<list.get(i)){
+                max=list.get(i);
+            }
+        }
+        
+        return max;
+        
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class Solution {
+    public int maxSubArray(int[] nums) {
+        if(nums.length==1){
+            return nums[0];
+        }
+        Set<Integer> list = new HashSet<Integer>(); 
+        //List<Integer>list=new LinkedList();
+        int startIndex=nums.length;  int negativeMax=nums[0];
+        for(int i=0;i<nums.length;i++){
+            
+             if(nums[i]<=0){
+                   if(negativeMax<nums[i]){
+                       negativeMax=nums[i];
+                   }
+                   continue;
+             }
+             startIndex=i;
+             break;
+            
+        }
+        int sum=0;
+        if(startIndex==nums.length){
+            //all negative
+            return negativeMax;
+        }
+       
+        for(int i=startIndex;i<nums.length;i++){  
+            if(nums[i]<0){
+                list.add(sum);
+                if(nums[i]+sum<0){
+                    sum=0; 
+                    continue;
+                }
+                sum+=nums[i];
+                continue;
+            }
+            sum+=nums[i];
+        }
+        list.add(sum);
+        Iterator itr = list.iterator();
+        int max=(int)itr.next();
+        while(itr.hasNext())
+        {
+            int temp=(int)itr.next();
+            if(max<temp){
+                max=temp;
+            }
+            //System.out.println(itr.next());
+        }
+        
+        return max;
+        
+    }
+}
