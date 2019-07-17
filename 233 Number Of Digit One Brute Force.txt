@@ -1,0 +1,33 @@
+class Solution {
+    public int countDigitOne(int n) {
+        if (n < 1) {
+            return 0;
+        } else if (n < 10) {
+            return 1;
+        }
+        int counter=0;
+        int checker=1;int length=0;
+        for(int i=1;i<=n;i++){
+            length=numberLength(i);
+            for(int k=0;k<length-1;k++){
+                checker=checker*10;
+            }
+           int num=i;
+            while(checker!=0){
+                if(num/checker==1){
+                    counter++;
+                }
+               
+                num=num-(num/checker)*checker;
+                checker=checker/10;
+            }
+            checker=1;
+            
+        } 
+        return counter;    
+    }
+    
+    public int numberLength(int num){
+        return Integer.toString(num).length();
+    }
+}
