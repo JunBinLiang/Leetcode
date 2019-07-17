@@ -42,6 +42,83 @@ class Solution {
         int left=getDepth(root.left)+1;
         int right=getDepth(root.right)+1;
         return Math.max(left, right);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    private boolean result=true;
+    public boolean isBalanced(TreeNode root) {
+        
+        helper(root);      
+        return result;
+    }
+    
+    public void helper(TreeNode root){
+        if(root==null){
+            return;
+        }
+        boolean checkresult=check(root);
+        if(!checkresult){
+            return;
+        }
+        helper(root.left);
+        helper(root.right);
+        
+    }
+    
+    
+    public boolean check(TreeNode root){
+        
+        int leftdepth=getDepth(root.left);
+        int rightdepth=getDepth(root.right);
+        if(Math.abs(leftdepth-rightdepth)>1){
+            result=false;
+            return false;
+        }
+        return true;
+    }
+    public int getDepth(TreeNode root){
+        if(root==null){
+            return 0;
+        }
+        int left=getDepth(root.left)+1;
+        int right=getDepth(root.right)+1;
+        return Math.max(left, right);
+        
+        
+    }
+}
+
+
         
         
    
