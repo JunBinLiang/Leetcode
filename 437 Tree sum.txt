@@ -1,0 +1,58 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    private int counter=0;
+    public int pathSum(TreeNode root, int sum) {
+        helper(root,sum);
+        return counter;
+    }
+    
+    public void helper(TreeNode root,int sum){
+        if(root==null){
+            return;
+        }
+        int copysum=sum;
+        int copysum1=sum;
+        int copysum2=sum;
+        //
+       
+       //System.out.println("Enter"+root.val);//10 -3 11 5 2 1 3 -2 3
+        check(root,copysum);
+        helper(root.right,copysum1);
+        helper(root.left,copysum2);
+        
+    }
+    
+    
+    public void check(TreeNode root,int sum){
+        if(root==null){
+          // System.out.println();
+            return;
+        }
+        
+                
+          
+        
+            int copysum1=sum-root.val;
+            int copysum2=sum-root.val;
+             // System.out.print(root.val+" "+"sum"+copysum2+" ");
+            if(copysum1==0){
+                //System.out.println("sum is 0       "+root.val);
+                counter++;
+                
+            }
+        
+            check(root.right,copysum1);
+            check(root.left,copysum2);
+        
+        
+        
+    }
+}
