@@ -1,0 +1,86 @@
+class Solution {
+    public int countDigitOne(int n) {
+        if (n < 1) {
+            return 0;
+        } else if (n < 10) {
+            return 1;
+        }
+        int counter=0;
+        int length=numberLength(n);
+        int arr[]=new int[length+1]; arr[1]=1;
+        int digitNum=9;
+       
+        for(int i=2;i<arr.length-1;i++){
+           digitNum=digitNum*10;
+           arr[i]= 10*arr[i-1]+(digitNum/9);                    
+        }
+         //counter=arr[arr.length-2];
+        
+          
+         digitNum=1;
+         while(length!=1){
+             digitNum*=10;
+             length--;
+         }
+       // System.out.println(digitNum);
+        int firstDigit=n/digitNum;
+        //System.out.println(firstDigit);
+        if(firstDigit==1){
+          counter=arr[arr.length-2]+n-digitNum+1;
+            
+        }
+        else{
+            counter=digitNum+firstDigit*arr[arr.length-2];
+        }//counter is used for first digit
+       
+        
+        
+        int newNum=n-firstDigit*digitNum;
+        length=numberLength(newNum);
+       //  System.out.println(length);
+        int remainsum=0;
+        digitNum=1;
+       
+        while(length!=0){
+            System.out.println("length"+length);
+            System.out.println("number"+newNum);
+            if(length==1){
+                if(newNum>=1){
+                    remainsum++;
+                }
+                
+                break;
+            }
+            
+            
+            for(int i=0;i<length-1;i++){
+                digitNum=digitNum*10;
+            }
+          //  System.out.println("digitnum"+digitNum);//100 10
+           // System.out.println(newNum);
+            int firstD=newNum/digitNum;
+           // System.out.println("first digit"+firstD);
+            
+            if(firstD==1){
+                remainsum=remainsum+arr[length-1]+newNum-digitNum+1;
+            }else{
+                //first*arr[length-1];
+              remainsum=remainsum+digitNum+firstD*arr[length-1];
+            }
+            
+            newNum=newNum-firstD*digitNum;  
+            length=numberLength(newNum);
+            digitNum=1;
+        }
+        
+        
+        
+      //  System.out.println("remainsum "+remainsum);
+        counter=counter+remainsum;
+        return counter;    
+    }
+    
+    public int numberLength(int num){
+        return Integer.toString(num).length();
+    }
+}
