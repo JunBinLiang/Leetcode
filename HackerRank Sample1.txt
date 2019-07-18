@@ -1,0 +1,15 @@
+   // find a number if exist in the list
+
+ static String findNumber(List<Integer> arr, int k) {
+        if(arr.size()==0){
+             return "No";
+        }
+         int size=arr.size();
+         for(int i=0;i<size;i++){
+             if(arr.get(i)==k){
+                 return "YES";
+             }
+         }
+         return "NO";
+
+    }
