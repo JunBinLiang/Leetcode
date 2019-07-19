@@ -24,3 +24,50 @@ class Solution {
         helper(root.right);
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    //private List<Integer> list=new LinkedList();
+    int counter;
+    int result;
+    public int kthSmallest(TreeNode root, int k) {
+        counter=k;
+        helper(root);   
+        return result;
+    }
+    
+    public void helper(TreeNode root){
+        if(root==null){
+            return;
+        }
+        helper(root.left);
+        counter--;
+        if(counter==0){
+            result=root.val;
+            return;
+        }
+        helper(root.right);
+    }
+}
