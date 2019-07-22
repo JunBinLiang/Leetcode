@@ -102,6 +102,8 @@ class Solution {
             sum+=nums[i];
         }
         list.add(sum);
+
+
         Iterator itr = list.iterator();
         int max=(int)itr.next();
         while(itr.hasNext())

@@ -1,0 +1,60 @@
+1. Time exceed, not finish yet(Brute force)
+class Solution {
+    public int maxProduct(int[] nums) {
+        if(nums.length==1){
+            return nums[0];
+        }
+        Set<Integer> list = new HashSet<Integer>(); 
+        int startIndex=0; int endIndex;
+        int gap=nums.length;int sum=1;
+        while(gap>0){
+            endIndex=startIndex+gap-1;
+            
+            while(endIndex<nums.length){
+                for(int i=startIndex;i<=endIndex;i++){
+                    sum*=nums[i];
+                }
+                if(!list.contains(sum)){
+                    list.add(sum);
+                }
+                sum=1;
+                endIndex++;
+                startIndex++;
+            }
+            startIndex=0;
+            gap--;
+            
+         
+        }
+        //list.add(sum);
+        Iterator itr = list.iterator();
+        int max=(int)itr.next();
+        while(itr.hasNext())
+        {
+            int temp=(int)itr.next();
+            if(max<temp){
+                max=temp;
+            }
+            //System.out.println(itr.next());
+        }
+        return max;
+        
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2. Finish version
+
+
