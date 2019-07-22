@@ -55,6 +55,179 @@ class Solution {
 
 
 
-2. Finish version
+2. Finish version  99%
+
+
+class Solution {
+    private int max=Integer.MIN_VALUE;
+    private boolean hasZero=false;
+    public int maxProduct(int[] nums) {
+        if(nums.length==1){
+            return nums[0];
+        }
+        int endIndex=nums.length-1;
+        int startIndex=0;
+        for(int i=0;i<nums.length;i++){
+            if(nums[i]==0){
+                max=0;
+                continue;
+            }
+            startIndex=i;
+            break;
+        }
+        //skip all starting zeros
+        
+        for(int i=nums.length-1;i>=0;i--){
+            if(nums[i]==0){
+               
+                continue;
+            }
+            endIndex=i;
+            break;
+        }
+        //skip all end zeros
+        
+      //  System.out.println("endindex "+endIndex);
+         
+        for(int i=startIndex;i<=endIndex;i++){
+            if(i==endIndex){
+                
+                helper(nums,startIndex,i);
+            }
+            
+            if(nums[i]==0){
+                hasZero=true;
+                helper(nums,startIndex,i-1);
+                for(int j=i;j<nums.length;j++){
+                    if(nums[j]==0){
+                        continue;
+                    }
+                    startIndex=j;
+                    i=startIndex-1;
+                    break;
+                }
+            }
+        }
+        if(hasZero){ 
+            if(max<0){
+                return 0;
+            }
+        }
+        
+        return max;
+    }
+      
+    
+    
+    public void helper(int[] nums,int start,int end){
+       // System.out.println("startindex "+start+"   endindex  "+end);
+        if(start==end){//single element
+             //System.out.println("max"+max);
+            if(max<nums[start]){
+                max=nums[start];
+               
+                
+            }
+            return;
+        }
+        
+        int sum=1; int lastNegative=end;
+        int negativeCounter=0;
+        for(int i=start;i<=end;i++){
+            // System.out.print(nums[i]+" ");
+            if(nums[i]<0){
+                lastNegative=i;
+                negativeCounter++;
+            }
+        }
+        //System.out.print("   negative num "+negativeCounter);
+       
+       // System.out.println();
+        
+        if(negativeCounter%2==0){
+            for(int i=start;i<=end;i++){
+                sum*=nums[i];
+            }
+            if(max<sum){
+                max=sum;
+            }
+            return;
+        }
+        
+        if(negativeCounter%2==1){
+            //System.out.print("   odd ");
+            if(lastNegative==start){
+                // System.out.print("   start ");
+                for(int i=start+1;i<=end;i++)
+                {
+                    sum*=nums[i];
+                }
+                if(max<sum){
+                    max=sum;
+                }
+               //  System.out.print(sum);
+            }
+            else{
+                int sum1=1;
+                int sum2=1;
+                for(int i=start;i<lastNegative;i++){
+                    sum1*=nums[i];
+                }
+                for(int i=lastNegative+1;i<=end;i++){
+                     sum2*=nums[i];
+                }
+                if(max<sum1){
+                    max=sum1;
+                }
+                if(max<sum2){
+                    max=sum2;
+                }
+               //  System.out.println(sum1+"   "+sum2);
+                
+            }
+           
+            
+            
+        }
+        for(int i=end;i>=start;i--){
+           // System.out.print(nums[i]+" ");
+            if(nums[i]<0){
+                lastNegative=i;
+            }
+        }
+        
+        if(lastNegative==end){
+                // System.out.print("   start ");
+                for(int i=end-1;i>=start;i--)
+                {
+                    sum*=nums[i];
+                }
+                if(max<sum){
+                    max=sum;
+                }
+               //  System.out.print(sum);
+            }
+            else{
+                int sum1=1;
+                int sum2=1;
+                for(int i=end;i>lastNegative;i--){
+                    sum1*=nums[i];
+                }
+                for(int i=lastNegative-1;i>=start;i--){
+                     sum2*=nums[i];
+                }
+                if(max<sum1){
+                    max=sum1;
+                }
+                if(max<sum2){
+                    max=sum2;
+                }
+              
+                
+            }
+         
+        
+    }
+}
 
 
