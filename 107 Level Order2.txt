@@ -1,0 +1,49 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+import javafx.util.Pair;
+class Solution {
+    LinkedList<List<Integer>> result=new LinkedList();
+    public List<List<Integer>> levelOrderBottom(TreeNode root) {
+        if(root==null){
+            return result;
+        }
+        
+        Queue<Pair<TreeNode,Integer>> queue = new LinkedList<>(); 
+        queue.add(new Pair<TreeNode,Integer>(root,0));
+       // List<Integer>test=new LinkedList();
+        while(queue.size()!=0){
+            Pair<TreeNode,Integer> temp=queue.remove();
+            TreeNode current=temp.getKey();
+           // test.add(current.val);
+            int level=temp.getValue();
+            if(result.size()<level+1){
+                List<Integer>list=new LinkedList();
+                list.add(current.val);
+                result.add(list);
+            }else{
+                result.get(level).add(current.val);
+            }
+            
+            if(current.left!=null){
+                queue.add(new Pair<TreeNode,Integer>(current.left,temp.getValue()+1));
+            }
+            if(current.right!=null){
+             queue.add(new Pair<TreeNode,Integer>       (current.right,temp.getValue()+1));
+            }
+            
+        }
+        LinkedList<List<Integer>> finalResult=new LinkedList();
+        for(int i=result.size()-1;i>=0;i--){
+            finalResult.add(result.get(i));
+        }
+        
+        return finalResult;
+    }
+}
