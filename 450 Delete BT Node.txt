@@ -1,0 +1,139 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public TreeNode deleteNode(TreeNode root, int key) {
+        if(root==null){
+            return null;
+        }
+        // case of removing the root
+        if(root.val==key){
+            int numbers=childrens(root);
+            if(numbers==0){
+                return null;
+            }
+            else if(numbers==10){
+                //left!=null
+                root=root.left;
+                return root;
+            }
+            else if(numbers==100){
+                //right!=null
+                root=root.right;
+                return root;
+            }
+            else{
+                //2 child
+                int value=rightLargest(root.right,key);
+                root.val=value;
+                helper(root,key);
+                return root;
+                
+            }
+        }
+        
+        helper(root,key);
+        return root;
+    }
+    
+    public void helper(TreeNode root, int key){
+        if(root==null){
+            return;
+        }
+        //root is the parent
+        if(root.right!=null){
+            if(root.right.val==key){
+                int numbers=childrens(root.right);
+                if(numbers==0){
+                    root.right=null;
+                    return;
+                }
+                else if(numbers==10){
+                    //left!=null
+                    root.right=root.right.left;
+                    return;
+                }
+                else if(numbers==100){
+                    //right!=null
+                    root.right=root.right.right;
+                    return;
+                }
+                else{
+                    // 2child
+                     int value=rightLargest(root.right.right,key);
+                     root.right.val=value;
+                     helper(root.right,key);
+                     return;
+                }
+                
+            }
+        }
+        if(root.left!=null){
+            if(root.left.val==key){
+                int numbers=childrens(root.left);
+                if(numbers==0){
+                    root.left=null;
+                    return;
+                }
+                else if(numbers==10){
+                    //left!=null
+                    root.left=root.left.left;
+                    return;
+                }
+                else if(numbers==100){
+                    //right!=null
+                    root.left=root.left.right;
+                    return;
+                }
+                else{
+                    //2 child
+                    int value=rightLargest(root.left.right,key);
+                    root.left.val=value;
+                    helper(root.left,key);
+                    return;
+                }
+                
+            }
+        }
+      
+        
+        helper(root.right,key);
+        helper(root.left,key);
+    }
+    
+    
+   public int childrens(TreeNode root) {
+       if(root.right==null&&root.left==null){
+           return 0;
+       }
+       else if(root.right==null&&root.left!=null){
+           return 10; //left !=null
+       }
+       else if(root.left==null&&root.right!=null){
+           return 100;  //right!=null
+       }
+       else{
+           return 2;
+       }
+   }
+    
+   public int rightLargest(TreeNode root,int key){
+       if(root.left==null){
+           int value=root.val;
+           root.val=key;
+           return value;
+       }
+       
+      
+           return rightLargest(root.left,key);
+       
+       
+   } 
+    
+}
