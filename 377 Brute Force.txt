@@ -1,0 +1,38 @@
+//time exceed
+
+
+class Solution {
+    List<List<Integer>> result=new LinkedList();
+    public int combinationSum4(int[] nums, int target) {
+        Arrays.sort(nums);
+        for(int i=0;i<nums.length;i++){
+            if(target-nums[i]>=0){
+                List<Integer> list=new LinkedList();
+                list.add(nums[i]);
+                int copyTarget=target;
+                helper(nums,copyTarget-nums[i],list);
+            }
+        }
+        
+        return result.size();
+        
+    }
+    public void helper(int[] nums, int target,List<Integer>list){
+        if(target==0){
+            if(!result.contains(list)){
+                result.add(list);
+            }
+            return;
+        }
+        for(int i=0;i<nums.length;i++){
+            if(target-nums[i]>=0){
+                List<Integer> copylist=new LinkedList(list);
+                copylist.add(nums[i]);
+                int copyTarget=target;
+                helper(nums,copyTarget-nums[i],copylist);
+            }
+            
+        }
+        
+    }
+}
