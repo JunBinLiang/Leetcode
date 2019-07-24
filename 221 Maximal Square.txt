@@ -1,0 +1,58 @@
+class Solution {
+    private int result=0;
+    public int maximalSquare(char[][] matrix) {
+        if(matrix.length==0){
+            return 0;
+        }
+        int rowLength=matrix.length;
+        int colLength=matrix[0].length;
+        for(int row=0;row<matrix.length;row++){
+            for(int col=0;col<matrix[0].length;col++){
+                if(matrix[row][col]=='1'){
+                    //int area=1;
+                    int rowDest=row+1;
+                    int colDest=col+1;
+                    //int area=(counter+1)*(counter+1);
+                    int counter=0;
+                    while(rowDest<rowLength&&colDest<colLength){
+                    //System.out.print( " row "+row+" col "+col);
+                     // System.out.print( " rowDest "+rowDest+" colDest "+colDest);
+                       // System.out.println();
+                      boolean checkResut=checker(matrix,row,col,rowDest,colDest);
+                        if(checkResut){
+                            counter++;
+                        }
+                        if(!checkResut){
+                            break;
+                        }
+                        rowDest++;
+                        colDest++;
+                    }
+                    int area=(counter+1)*(counter+1);
+                    if(result<area){
+                        result=area;
+                    }                                    
+                }
+            }
+        }
+        
+        return result;
+    }
+    
+    
+    public boolean checker(char[][] matrix,int row,int col, int rowDest,int colDest)
+    {
+        
+        
+        for(int i=row;i<=rowDest;i++)
+        {
+            for(int j=col;j<=colDest;j++){
+                if(matrix[i][j]!='1'){
+                    return false;
+                }
+            }
+        }
+        return true;        
+        
+    }
+}
