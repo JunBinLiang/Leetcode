@@ -1,0 +1,57 @@
+class Solution {
+    public int minPathSum(int[][] nums) {
+        if(nums.length==1){
+            int sum=0;
+            for(int i=0;i<nums[0].length;i++){
+                sum+=nums[0][i];
+            }
+            return sum;
+        }
+        int rowLength=nums.length;
+        int colLength=nums[0].length;
+        int table[][]=new int[rowLength][colLength];
+        for(int i=0;i<rowLength;i++){
+            for(int j=0;j<colLength;j++){
+                table[i][j]=0;
+            }
+        } //initialmized to 0
+        
+        
+        //move either down or right
+        
+        //1st row
+        table[0][0]=nums[0][0];
+        for(int i=1;i<colLength;i++){
+            table[0][i]=table[0][i-1]+nums[0][i];
+        }
+        //1st col
+        for(int i=1;i<rowLength;i++){
+            table[i][0]=table[i-1][0]+nums[i][0];
+        }
+
+        for(int row=1;row<rowLength;row++){
+            for(int col=1;col<colLength;col++){
+                int min=table[row-1][col];
+                if(min>table[row][col-1]){
+                    min=table[row][col-1];
+                }
+                table[row][col]=min+nums[row][col];
+            }
+        }
+        //print(table);
+        
+        return table[rowLength-1][colLength-1];
+    }
+    
+    public void print(int[][] nums){
+        for(int i=0;i<nums.length;i++){
+            for(int j=0;j<nums[0].length;j++){
+                System.out.print(nums[i][j]+" ");
+            }
+              System.out.println();
+        } //initialmized to 0
+      
+        
+    }
+    
+}
