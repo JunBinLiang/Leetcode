@@ -1,0 +1,84 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    private int sum=0;
+    public TreeNode convertBST(TreeNode root) {
+        //need to use level order
+        if(root==null){
+            return null;
+        }
+        List<Integer>sums=new LinkedList();
+        
+        Queue<TreeNode>queue=new LinkedList<>();
+        queue.add(root);
+        while(queue.size()!=0){
+            TreeNode top=queue.remove();
+            getGreater(root,top.val);
+            sums.add(sum);
+            sum=0;
+            
+            if(top.left!=null){
+                queue.add(top.left);
+            }
+            if(top.right!=null){
+                queue.add(top.right);
+            }
+            
+            
+        }
+        queue.add(root);
+        int counter=0;
+        while(queue.size()!=0){
+            TreeNode top=queue.remove();
+            int toadd=sums.get(counter);
+            top.val=top.val+toadd;
+            counter++;
+            
+            if(top.left!=null){
+                queue.add(top.left);
+            }
+            if(top.right!=null){
+                queue.add(top.right);
+            }
+            
+            
+        }
+        
+      
+          
+       return root;
+    }
+    
+    
+
+    
+    
+
+    
+
+    
+    
+    
+    public void getGreater(TreeNode root, int val){
+        
+        if(root==null){
+            return;
+        }
+        if(root.val>val){
+            sum=sum+root.val;
+        }
+        getGreater(root.right,val);
+        getGreater(root.left,val);
+        
+        
+    }
+    
+    
+}
