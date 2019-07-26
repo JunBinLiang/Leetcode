@@ -1,0 +1,33 @@
+
+
+class Solution {
+    private List<List<Integer>> result=new LinkedList();
+    private int length;
+    public List<List<Integer>> subsetsWithDup(int[] nums) {
+        Arrays.sort(nums);
+        length=nums.length;
+        List<Integer> empty=new LinkedList();
+        helper(nums,empty,0);
+        return result;
+        
+    }
+    public void helper(int[] nums,List<Integer>list,int index){
+        if(index==length){
+            return;
+        }
+        
+        List<Integer> notaddlist=new LinkedList(list);
+        List<Integer> addlist=new LinkedList(list);
+        addlist.add(nums[index]);
+        if(!result.contains(notaddlist)){
+            result.add(notaddlist);
+        }
+        if(!result.contains(addlist)){
+            result.add(addlist);
+        }
+        helper(nums,addlist,index+1);
+        helper(nums,notaddlist,index+1);
+        
+        
+    }
+}
