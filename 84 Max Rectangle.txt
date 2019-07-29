@@ -1,0 +1,54 @@
+class Solution {
+    public int largestRectangleArea(int[] nums) {
+        if(nums.length==0){
+            return 0;
+        }
+        if(nums.length==1){
+            return nums[0];
+        }
+        int end=0;
+        int start=0;
+        int max=0; int value=0;
+        for(int i=0;i<nums.length;i++){
+            value=nums[i];
+            
+            for(int j=i;j<nums.length;j++){
+                if(value<=nums[j]){
+                    if(j==nums.length-1){
+                        end=j;
+                    }
+                    continue;
+                }
+              
+                
+                end=j-1;
+                break;
+            }
+            for(int j=i;j>=0;j--){
+                if(value<=nums[j]){
+                    if(j==0){
+                        start=0;
+                    }
+                    continue;
+                }
+                start=j+1;
+                break;
+            }
+            //System.out.println("i "+i+"  start "+start+"   end  "+end);
+            int area=(end-start+1)*value;
+            if(max<area){
+                max=area;
+            }
+            
+            
+        }
+         
+        
+        
+ 
+        
+        
+        return max;
+        
+    }
+}

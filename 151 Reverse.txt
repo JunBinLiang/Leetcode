@@ -1,0 +1,49 @@
+class Solution {
+    public String reverseWords(String s) {
+        if(s.equals("")){
+            return new String(""); 
+        }
+
+        char arr[]=s.toCharArray(); int startIndex=0;
+        for(int i=0; i<arr.length;i++){
+            if(arr[i]==' '){
+                continue;
+            }
+            startIndex=i;
+            break;
+        }//skip all the blank
+        Stack<String> stack=new Stack();
+
+        
+        for(int i=startIndex;i<arr.length;i++){
+            if(arr[i]==' '){
+               stack.push(s.substring(startIndex,i));
+               startIndex=i+1; 
+            }
+        }
+       
+        stack.push(s.substring(startIndex,arr.length));
+        
+        
+        
+        
+        String result="";
+        while(!stack.empty()){
+            String tem=stack.pop();
+            if(tem.equals("")){
+                continue;
+            }
+            if(stack.empty()){
+                result+=tem;
+                break;
+            }
+            result+=tem+" ";
+        }
+       
+      
+        
+        return result;
+        
+  }
+    
+}
