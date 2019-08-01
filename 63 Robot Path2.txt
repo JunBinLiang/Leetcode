@@ -1,0 +1,95 @@
+class Solution {
+    public int uniquePathsWithObstacles(int[][] nums) {
+        if(nums.length==1){ //only one row
+            for(int i=0;i<nums[0].length;i++){
+                if(nums[0][i]==1){  //obstacle
+                    return 0;
+                }
+            }
+            return 1;
+        }
+        if(nums[0].length==1){  //only one col
+            for(int i=0;i<nums.length;i++){  
+                if(nums[i][0]==1){   //obstacle
+                    return 0;
+                }
+            }
+            return 1;
+        }
+        
+        if(nums[nums.length-1][nums[0].length-1]==1||nums[0][0]==1){
+            return 0;  
+        }
+        
+        
+        
+        
+        
+        int row=nums.length;
+        int col=nums[0].length;
+        //modify the array
+        for(int i=0;i<row;i++){
+            for(int j=0;j<col;j++){
+                if(nums[i][j]==1){
+                    nums[i][j]=Integer.MAX_VALUE;
+                }
+            }
+        }
+        
+        
+        
+        
+        //maintain zero
+        for(int i=0;i<col;i++){
+            if(nums[0][i]==Integer.MAX_VALUE){
+                break;
+            }
+            nums[0][i]=1;
+        }
+        for(int i=0;i<row;i++){
+            if(nums[i][0]==Integer.MAX_VALUE){
+                break;
+            }
+            nums[i][0]=1;
+        }
+        
+         //print(nums);
+        for(int i=1;i<row;i++){
+            for(int j=1;j<col;j++){
+                if(nums[i][j]==Integer.MAX_VALUE){
+                    continue;
+                }
+                int left=nums[i][j-1];
+                int top=nums[i-1][j];
+                int result=0;
+                if(left==Integer.MAX_VALUE&&top==Integer.MAX_VALUE){
+                    result=0;
+                }else if(left==Integer.MAX_VALUE&&top!=Integer.MAX_VALUE){
+                    result=top;
+                }else if(left!=Integer.MAX_VALUE&&top==Integer.MAX_VALUE){
+                    result=left;
+                }else{
+                    result=top+left;
+                }
+                
+                nums[i][j]=result;
+                
+            }
+           
+        }
+        
+        
+        return nums[row-1][col-1];
+        
+    }
+    
+    public void print(int[][] nums){
+        for(int i=0;i<nums.length;i++){
+            for(int j=0;j<nums[0].length;j++){
+                System.out.print(nums[i][j]+" ");
+            }
+            System.out.println();
+        }
+    }
+    
+}
