@@ -1,0 +1,85 @@
+class Solution {
+    public int minSubArrayLen(int target, int[] nums) {
+        int result=Integer.MAX_VALUE; int sum=0; int counter=0;
+        if(nums.length==0){
+            return 0;
+        }
+        
+        for(int i=0;i<nums.length;i++){
+            sum+=nums[i];
+        }
+        if(sum<target){
+            return 0;
+        }
+        sum=0;
+        int start=0;
+        
+        
+        for(int i=0;i<nums.length;i++){
+           sum=sum+nums[i];
+           counter++;
+           if(sum>=target){
+              //System.out.println(i+"  "+nums[i]+" counter  "+counter);
+               if(result>=counter){
+                   result=counter;
+               }
+
+               counter=0;
+               sum=0;
+               i=start+1;
+               start=i;
+           }
+
+        }
+        return result;
+        
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ApeironC's avatar
+ApeironC
+10
+July 14, 2019 11:24 PM
+
+35 VIEWS
+
+class Solution {
+public:
+    int minSubArrayLen(int s, vector<int>& nums) {
+        int left = 0, right = 0;
+        int res = INT_MAX;
+        int cnt = 0;
+        while(right < nums.size()){
+            cnt += nums[right];
+            while(left <= right && cnt >= s){
+                res = min(res, right-left+1);
+                cnt -= nums[left];
+                left++;
+            }
+            right++;
+        }
+        return res == INT_MAX ? 0 : res;
+    }
+};
