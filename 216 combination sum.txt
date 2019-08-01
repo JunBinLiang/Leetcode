@@ -1,0 +1,48 @@
+                                        class Solution {
+                                            private List<List<Integer>>result=new LinkedList();
+                                            private int size;
+                                            public List<List<Integer>> combinationSum3(int k, int sum) {
+                                                size=k;
+                                                for(int i=1;i<=9;i++){
+                                                    if(i<=sum){
+                                                        List<Integer>list=new LinkedList();
+                                                        list.add(i);
+                                                        int copySum=sum-i;
+                                                        helper(i,copySum,list);
+                                                    }
+
+                                                }
+                                                return result;
+                                            }
+                                            public void helper(int start,int sum,List<Integer>list){
+                                               // System.out.println(sum);
+                                                if(sum<0){
+                                                    return;
+                                                }
+                                                if(sum==0){
+                                                    if(!result.contains(list)){
+                                                        if(list.size()==size){
+                                                            result.add(list);
+                                                        }
+
+                                                    }
+                                                    return;
+                                                }
+                                                for(int i=start;i<=9;i++){
+                                                    if(i<=sum){
+                                                        if(!list.contains(i)){
+                                                            List<Integer>copylist=new LinkedList(list);
+                                                            copylist.add(i);
+                                                            int copySum=sum-i;
+                                                            helper(i,copySum,copylist);
+
+                                                        }
+                                                    }
+                                                }
+
+                                            }
+
+
+
+
+}
