@@ -1,0 +1,29 @@
+class Solution {
+    public char findTheDifference(String s, String t) {
+        Map<Character,Integer>map=new HashMap();
+        for(int i=0;i<t.length();i++){
+            if(map.containsKey(t.charAt(i))){
+                map.put(t.charAt(i),map.get(t.charAt(i))+1);
+            }
+            else{
+                map.put(t.charAt(i),1);
+            }
+        }
+        for(int i=0;i<s.length();i++){
+            if(map.containsKey(s.charAt(i))){
+                map.put(s.charAt(i),map.get(s.charAt(i))-1);
+            }
+        }
+        
+        char result='a';
+        for(Character key:map.keySet()){
+            if(map.get(key)==1){
+                result=key;
+                break;
+            }
+        }
+        
+        return result;
+        
+    }
+}

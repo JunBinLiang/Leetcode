@@ -1,0 +1,102 @@
+/**
+ * Definition for singly-linked list.
+ * class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) {
+ *         val = x;
+ *         next = null;
+ *     }
+ * }
+ */
+public class Solution {
+    public ListNode detectCycle(ListNode head) {
+     if (head == null || head.next == null) {
+            return null;
+        } //at least two element, or least one with cycle
+        ListNode slow = head;
+        ListNode fast = head.next;
+        if(slow==fast){
+            return slow; //1 element cycle
+        }
+        int cycleLength=1; ListNode mark=null;
+        while (slow != fast) {
+            if (fast == null || fast.next == null) {
+                return null;
+            }
+           
+            slow = slow.next;
+            fast = fast.next.next;
+            if(slow==fast){
+                mark=slow;
+            }    
+        }// if exit that loop, for the least, cycle exit
+        
+        
+        
+        // calculate the cycle length
+        ListNode temp=mark.next;
+        
+        if(temp==mark){
+            cycleLength=1;
+        }else
+        {
+            
+            while(temp!=mark){
+                cycleLength++;
+                temp=temp.next;
+            
+            }
+        
+        }
+    
+       // System.out.println(cycleLength);
+        slow=head;
+        fast=mark; int copyLength=cycleLength;
+        while(slow!=fast){
+           
+            copyLength--;
+            fast=fast.next;
+           if(copyLength==0){
+               copyLength=cycleLength;
+               slow=slow.next;
+           }
+        
+        
+        }
+        
+        
+        
+        return slow;
+    }
+     
+}
+
+
+
+
+
+
+
+
+class Solution {
+public:
+    ListNode *detectCycle(ListNode *head) 
+    {
+        ListNode * slow = head, * fast = head;
+        while(fast && fast -> next)
+        {
+            fast = fast -> next -> next;
+            slow = slow -> next;
+            if(fast == slow)
+            {
+                for(; head != slow; slow = slow -> next, head = head -> next);
+                return head;
+            }
+        }
+        return NULL;
+    }
+};
+
+
+

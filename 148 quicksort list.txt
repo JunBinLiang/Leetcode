@@ -1,0 +1,104 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+import javafx.util.Pair; 
+class Solution {
+    ListNode result;
+    public ListNode sortList(ListNode head) {
+        result=head;
+        int min=Integer.MAX_VALUE;
+        if(head==null){
+            return null;
+        }
+        //find the minimum element, which will be the head for the final result,smallest is always the head
+        ListNode cur=head;
+  
+        //System.out.println(result.val);
+        ListNode dummy=new ListNode(0);
+        dummy.next=head;
+        quicksort(head,null,dummy);
+        return dummy.next;      
+    }
+    //quick sort
+    public void quicksort(ListNode head,ListNode end, ListNode preheader )
+    {
+        if(head==end||head==null){
+            return;
+        }
+        
+           Pair<ListNode,ListNode> pair= partition(head,end,preheader);
+           
+           ListNode pivot=pair.getKey();
+           ListNode newhead=pair.getValue();
+           //System.out.println("pivot  "+pivot.val+" newhead"+newhead.val);
+           // print(newhead);
+            //print(result);
+           
+            quicksort(newhead,pivot,preheader);
+            quicksort(pivot.next,end,pivot);
+        
+    }
+    
+    public Pair<ListNode,ListNode> partition(ListNode head,ListNode end,ListNode preheader){
+        ListNode pivot=head; //take the head as pivot
+        ListNode current=head;
+        ListNode previous=pivot;
+       // System.out.println("partition, pivot "+pivot.val);
+        
+        while(current!=end&&current!=null){
+            if(current==pivot){
+                current=current.next;
+                continue;
+            }
+           
+            if(current.val<=pivot.val){
+               // System.out.println("small current "+current.val);
+                ListNode temp=current;
+                current=current.next;
+                 if(current==null){
+                     temp.next=head;
+                     head=temp;
+                     if(previous!=null){
+                         previous.next=null;
+                     }else{
+                         pivot.next=current;
+                     }
+                     //print(head);
+                     continue;
+                 }       
+                
+
+                
+                previous.next=current;
+                temp.next=head;
+                head=temp;
+                //print(head);
+                continue;
+            }
+            
+            if(current.val>pivot.val){
+                 //System.out.println("large current "+current.val);
+                 previous=current;
+                 current=current.next;
+               
+            }
+            
+        }
+       // result=head;
+        if(preheader!=null){
+           // System.out.println("preheader"+preheader.val+"   head"+head.val);
+            preheader.next=head;
+        }
+        
+        return new Pair(pivot,head);
+    }
+    
+
+    
+    
+}
