@@ -1,0 +1,39 @@
+class Solution {
+public:
+    int thirdMax(vector<int>& nums) {
+      int min=nums[0];
+      for(int i=0;i<nums.size();i++){
+          if(min>nums[i]){
+              min=nums[i];
+          }
+      }
+      int first=min;int second=min;int third=min;
+        
+        
+        for(int i=0;i<nums.size();i++){
+             if(nums[i]>first){
+                first=nums[i];
+             }  
+        }
+        for(int i=0;i<nums.size();i++){
+             if(nums[i]>second&&nums[i]<first){
+                second=nums[i];
+             }  
+        }
+        
+        for(int i=0;i<nums.size();i++){
+             if(nums[i]>third&&nums[i]<second){
+                third=nums[i];
+             }  
+        }
+
+        if(first==second&&second==third){
+            return first;
+        }
+        if(first==second||second==third||first==third){
+            return first;
+        }
+        
+        return third;
+    }
+};
