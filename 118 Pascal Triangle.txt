@@ -1,0 +1,27 @@
+class Solution {
+    List<List<Integer>> result=new LinkedList();
+    public List<List<Integer>> generate(int row) {
+        if(row==0){
+            return result;
+        }
+        List<Integer>firstList=new LinkedList();
+        firstList.add(1);
+        result.add(firstList);
+        for(int i=1;i<row;i++){
+            List<Integer> preList=result.get(i-1);
+            int size=preList.size()+1;
+            List<Integer> addList=new LinkedList();
+            for(int j=0;j<size;j++){
+                if(j==0||j==size-1){
+                    addList.add(1);
+                    continue;
+                }
+                addList.add(preList.get(j)+preList.get(j-1));
+                
+            }
+            result.add(addList);
+        }
+        
+        return result;
+    }
+}
