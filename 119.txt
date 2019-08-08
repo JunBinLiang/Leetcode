@@ -1,0 +1,27 @@
+class Solution {
+    public List<Integer> getRow(int row) {
+        List<Integer>result=new LinkedList();
+        result.add(1);
+        if(row==0){
+            return result;
+        }
+        for(int i=1;i<=row;i++){
+            int size=result.size()+1;
+            List<Integer> newList=new LinkedList();
+            for(int k=0;k<size;k++){
+                if(k==0){
+                    newList.add(1);
+                    continue;
+                }
+                if(k==size-1){
+                    newList.add(1);
+                    continue;
+                }//else
+                
+               newList.add(result.get(k)+result.get(k-1)); 
+            }
+            result=newList;
+        }
+        return result;
+    }
+}
