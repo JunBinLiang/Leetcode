@@ -1,0 +1,126 @@
+import javafx.util.Pair; 
+class Solution {
+    public void solveSudoku(char[][] board) {
+        Pair<Integer,Integer> arr[]=new Pair[81]; int counter=0;
+        //Pair :  getKey() getValue()
+        
+        for(int row=0;row<9;row++){
+            for(int col=0;col<9;col++){
+                if(board[row][col]=='.'){
+                    //empty
+                    //System.out.println(row+" "+col);
+                    arr[counter++]=new Pair(row,col);
+                }
+            }
+        }
+      
+        for(int i=0;i<counter;i++)
+        { 
+            int row=arr[i].getKey();
+            int col=arr[i].getValue();
+           
+           
+            int value=1;
+            while(value<10){
+                if(board[row][col]!='.'){
+                    if(Character.getNumericValue(board[row][col])==9){
+                       board[row][col]='.';
+                        if(i-2>-1){
+                          i=i-2;
+                          break;
+                        }
+                    }
+                    value=Character.getNumericValue(board[row][col])+1;
+                } 
+                //System.out.println(row+"  "+col+"  "+value);
+                
+                board[row][col]=(char)(value+'0');  
+                
+                if(check(board)==true){
+                   
+                    break;
+                }
+                if((check(board)==false&&value==9)  ){
+                    board[row][col]='.';
+                    if(i-2>-1){
+                      i=i-2;
+                      break;
+                    }
+                }
+            }//while
+
+        }
+        
+        
+    }
+    
+    public boolean check(char[][] board) {
+        //Map<Integer, Integer> map = new HashMap<>();
+         Map<Character, Integer> map1 = new HashMap<>();
+        //check row
+        for(int row=0;row<9;row++){
+           map1.clear();
+            for(int i=0;i<9;i++){
+                if(board[row][i]=='.'){continue;}                
+                if (map1.containsKey(board[row][i])) {return false;}
+                else{map1.put(board[row][i], i);}
+            }
+        }
+        // check col
+        for(int col=0;col<9;col++){
+            //Map<Character, Integer> map = new HashMap<>();
+            map1.clear();
+            for(int i=0;i<9;i++){
+                if(board[i][col]=='.'){continue;}
+                
+                if (map1.containsKey(board[i][col])) {return false;}
+                else{map1.put(board[i][col], i);}
+            }
+        }
+        
+        // check diagonal 1
+        for(int i=0;i<9;i++){
+             //Map<Character, Integer> map = new HashMap<>();
+             map1.clear();
+             if(board[i][i]=='.'){continue;}
+             if (map1.containsKey(board[i][i])) {return false;}
+             else{map1.put(board[i][i], i);}
+        }
+        // check diagonal 1
+        for(int i=0;i<9;i++){
+            // Map<Character, Integer> map = new HashMap<>();
+             map1.clear();
+             if(board[i][8-i]=='.'){continue;}
+             if (map1.containsKey(board[i][8-i])) {return false;}
+             else{map1.put(board[i][8-i], i);}
+        }
+        int position[][]={{0,1,2,9,10,11,18,19,20},
+                       {3,4,5,12,13,14,21,22,23},
+                       {6,7,8,15,16,17,24,25,26},
+                       {27,28,29,36,37,38,45,46,47},
+                       {30,31,32,39,40,41,48,49,50},
+                       {33,34,35,42,43,44,51,52,53},
+                       {54,55,56,63,64,65,72,73,74},
+                       {57,58,59,66,67,68,75,76,77},
+                       {60,61,62,69,70,71,78,79,80}
+                      };
+        
+            for(int i=0;i<9;i++){
+               // Map<Character, Integer> map = new HashMap<>();
+                map1.clear();
+                for(int j=0;j<9;j++){
+                    //convert back to row and col
+                    int row=position[i][j]/9;
+                    int col=position[i][j]%9;
+                    if(board[row][col]=='.'){continue;}
+                    if (map1.containsKey(board[row][col])) {return false;}
+                    else{map1.put(board[row][col], j);}
+                    
+                }
+
+            }
+        
+        
+        return true;
+    }
+}

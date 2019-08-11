@@ -1,0 +1,66 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* reverseBetween(ListNode* head, int start, int end) {
+        if(head==NULL){
+            return NULL;
+        }
+        if((*head).next==NULL){
+            return head;
+        }
+        if(start==end){
+            return head;
+        }
+       // return NULL;
+        int counter=1;
+        
+        ListNode* cur=head;
+        ListNode* pr=NULL;
+        while(cur){
+            if(counter==start){
+                break;
+            }
+            cout<<"loop1    "<<(*cur).val<<endl;
+            pr=cur;
+            cur=(*cur).next;
+            counter++;
+        } //counter=start  after break
+        //cur is the start right now
+        
+        ListNode* begin=cur;
+        ListNode* pre=NULL;
+        ListNode* next=(*cur).next;
+        while(next){
+            if(counter==end){
+                break;
+            }
+            //cout<<(*cur).val<<endl;
+            cur->next=pre;
+            pre=cur;
+            cur=next;
+            next=next->next;
+            counter++;
+            
+        }
+        cur->next=pre;
+        begin->next=next;
+        if(pr){
+             pr->next=cur;
+        }
+        else{
+            return cur;
+        }
+       
+        
+        //cout<<(*cur).val<<endl;
+        return head;
+        
+    }
+};
