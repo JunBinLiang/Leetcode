@@ -1,0 +1,50 @@
+class Solution {
+    private Set<Integer>path=new HashSet<Integer>();
+    private boolean result=true;
+    private int[][] graph;
+     int color[];
+    public boolean isBipartite(int[][] graph1) {
+        graph=graph1;
+         color=new int[graph.length];
+        for(int i=0;i<color.length;i++){
+            color[i]=0;
+            //System.out.println(color[i]);
+        }// 0 empty 1:black 2:red
+        color[0]=1;
+        for(int i=0;i<graph.length;i++){
+            if(path.contains(i)){
+                continue;
+            }
+            int selfColor=color[i];
+            int neighborcolor=0;
+            if(selfColor==1){
+                neighborcolor=2;
+            }else{
+                neighborcolor=1;
+            }
+            
+            helper(i,selfColor,neighborcolor);
+            
+        }
+            
+        return result;
+    }
+    
+    public void helper(int self,int selfColor,int neighborcolor){
+       if(path.contains(self)){
+           return;
+       }
+        path.add(self);
+        int neighbors[]=graph[self];
+        for(int i=0;i<neighbors.length;i++){
+            if( color[neighbors[i]]!=neighborcolor&&color[neighbors[i]]!=0){
+                result=false;
+                return;
+            }
+            color[neighbors[i]]=neighborcolor;
+            helper(neighbors[i],neighborcolor,selfColor);   
+        }
+    }
+    
+    
+}
