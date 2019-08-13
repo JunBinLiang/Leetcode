@@ -1,0 +1,98 @@
+class Solution {
+    private boolean result=false;
+    public boolean canPartition(int[] nums) {
+        if(nums.length<2){
+            return false;
+        }
+        int sum=0;
+       //Arrays.sort(nums);
+        for(int i=nums.length-1;i>=0;i--){
+            sum+=nums[i];
+        }
+        if(sum%2==1){
+            return false;
+        }
+        int target=sum/2;
+        for(int i=0;i<nums.length;i++){
+            if(target-nums[i]<0){
+                continue;
+            }
+            if(target-nums[i]==0){
+                //System.out.println("true1");
+                result=true;
+                break;
+            }
+            int copysum=target-nums[i];
+            helper(nums,copysum,i);
+            
+        }
+        
+        return result;
+    }
+    
+    public void helper(int[] nums,int sum,int start){
+        if(sum<0){
+            return;
+        }
+        if(sum==0){
+           // System.out.println("true2");
+            result=true;
+            return;
+        }
+        for(int i=start+1;i<nums.length;i++){
+            if(sum-nums[i]<0){
+                continue;
+            }
+            if(sum-nums[i]==0){
+               // System.out.println(sum+"  "+nums[i]);
+                //System.out.println("true3");
+                result=true;
+                break;
+            }
+            int copysum=sum-nums[i];
+            helper(nums,copysum,i);
+        }
+        
+        
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+class Solution {
+    public boolean canPartition(int[] nums) {
+        int sum = 0;
+        for (int n: nums) {
+            sum += n;
+        }
+        if (sum % 2 == 1) return false;
+
+        return backtracking(sum, nums, 0, 0, new HashSet<>());
+    }
+
+    public boolean backtracking(int sum, int[] nums, int cur, int i, Set<Integer> visited) {
+        if (cur == sum / 2) {
+            return true;
+        }
+        if (visited.contains(cur) || i > nums.length || cur > sum / 2) {
+            return false;
+        }
+        visited.add(cur);
+        for (int j = i; j < nums.length; j++) {
+            cur += nums[j];
+            if (backtracking(sum, nums, cur, j + 1, visited)) {
+                return true;
+            }
+            cur -= nums[j];
+        }
+        return false;
+    }
+}
