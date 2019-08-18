@@ -1,0 +1,62 @@
+class Solution {
+    public int findNthDigit(int n) {
+        if(n<10){
+            return n;
+        }
+        long counter=0;
+        long multiplier=9;
+        long copy=n;
+        while(copy>0){
+            copy=copy-multiplier*(counter+1);
+            multiplier=multiplier*10;
+             // if(copy<multiplier*(counter+1)){
+                  //break;
+              //}
+            counter++;
+             //System.out.println("loop"+multiplier+" "+counter+" remain"+copy);
+          
+        }//counter : how many digits
+        
+        //System.out.println(counter);
+        //reset value
+        copy=n;
+        multiplier=9;
+        for(int i=0;i<counter-1;i++){
+            copy=copy-multiplier*(i+1);
+            multiplier=multiplier*10;
+        }
+        
+        //System.out.println(copy);//3  100
+        
+        long nthNum=copy/counter;
+        long nthDig=copy%counter;
+       // System.out.println(nthNum);
+       // System.out.println(nthDig);
+        
+        long startNum=1;
+        for(int i=0;i<counter-1;i++){
+            startNum*=10;
+        }
+        startNum=startNum-1;
+        long copystart=startNum+1;
+        startNum=startNum+nthNum;
+        
+        
+        long result=0;
+       // System.out.println("start num"+startNum+"  "+nthDig);
+        
+        if(nthDig==0){
+            return (int) (startNum%10);
+        }
+       //System.out.println("copystart num"+copystart);
+        startNum=startNum+1;
+        for(int i=0;i<nthDig;i++){
+            result=startNum/copystart;
+            startNum=startNum-result*copystart;
+            copystart=copystart/10;
+        }
+        
+        return (int) result;
+        
+    }
+}
