@@ -10,3 +10,44 @@ class Solution {
         return list.get(k-1);
     }
 }
+
+
+
+
+
+class Solution {
+    public int smallestDistancePair(int[] nums, int k) {
+        Arrays.sort(nums);
+        List<Integer> list=new ArrayList();
+        int helperArray[]=new int[nums.length-1];int helperArray1[]=new int[nums.length-1];
+        int counter=0;
+        for(int i=1;i<nums.length;i++){
+            helperArray[counter]=nums[i]-nums[i-1];
+            helperArray1[counter]=nums[i]-nums[i-1];            
+            counter++;
+        }
+        
+        
+        for(int i=0;i<helperArray1.length;i++){
+            
+            for(int start=i;start<helperArray1.length;start++){
+                if(start==i){
+                    list.add(helperArray1[start]);
+                    continue;
+                }
+                helperArray1[start]=helperArray1[start]+helperArray1[start-1];
+                list.add(helperArray1[start]);     
+            }
+            
+            for(int j=0;j<helperArray1.length;j++){
+                helperArray1[j]=helperArray[j];
+            }
+            
+            
+        }
+        
+        Collections.sort(list);
+        return list.get(k-1);
+    }
+    
+}
