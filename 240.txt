@@ -1,0 +1,66 @@
+class Solution {
+    public boolean searchMatrix(int[][] nums, int target) {
+        if(nums.length==0){
+            return false;
+        }
+        if(nums[0].length==0){
+            return false;
+        }
+        if(nums.length==1){
+            for(int i=0;i<nums[0].length;i++){
+                if(target==nums[0][i]){
+                    return true;
+                }
+            }
+            return false;
+        }
+        
+        
+        boolean pass1=true; boolean pass2=true;
+        int endRow=0; int endCol=0;
+        for(int i=0;i<nums.length;i++){
+            if(target<nums[i][0]){
+                pass1=false;
+                endRow=i;
+                break;
+            }
+            endRow=i;
+        }
+        if(pass1){
+            endRow+=1;
+        }
+        //endRow =3  =>  can not in row 3
+        //System.out.println(endRow);
+        
+        for(int i=0;i<nums[0].length;i++){
+            if(target<nums[0][i]){
+                pass2=false;
+                endCol=i;
+                break;
+            }
+            endCol=i;
+           
+        }
+        if(pass2){
+            endCol+=1;
+        }
+         //System.out.println(endCol);   
+        
+        for(int i=0;i<endRow;i++){
+            for(int j=0;j<endCol;j++){
+                if(target==nums[i][j]){
+                    return true;
+                }
+            }
+        }
+        
+        if(endRow==0||endCol==0){
+            if(target==nums[0][0]){
+                return true;
+            }
+        }
+        
+        
+        return false;
+    }
+}
