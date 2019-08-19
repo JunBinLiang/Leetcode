@@ -1,0 +1,25 @@
+class Solution {
+    public boolean searchMatrix(int[][] nums, int k) {
+        if(nums.length==0){
+            return false;
+        }
+        int column=nums[0].length;
+        if(column==0){
+            return false;
+        }
+        
+        int whichRow=0;
+        for(int i=0;i<nums.length;i++){
+            if(k<=nums[i][column-1]){
+                whichRow=i;
+                break;
+            }
+        }
+        for(int i=0;i<column;i++){
+            if(k==nums[whichRow][i]){
+                return true;
+            }
+        }
+        return false;
+    }
+}
