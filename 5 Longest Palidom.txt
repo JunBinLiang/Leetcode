@@ -1,0 +1,71 @@
+class Solution {  //Dynamic Approach
+    public String longestPalindrome(String s) {
+        if(s.length()==0||s.length()==1){
+            return s;
+        }
+        int length=0;
+        String result="";
+        // check odd
+        
+        for(int i=0;i<s.length();i++)
+        {
+            int start=i;
+            int end=i;
+           // System.out.println("start  "+start+" end  "+end);
+            while(start-1>=0&&end+1<s.length()){
+                //System.out.println("start  "+start+" end  "+end);
+                if(s.charAt(start-1)!=s.charAt(end+1)){
+                    if(end-start+1>length){
+                        length=end-start+1;
+                        result=s.substring(start,end+1);
+                    }
+                    break;
+                }
+                start--;
+                end++;
+            }
+            if(end-start+1>length){
+                length=end-start+1;
+                result=s.substring(start,end+1);
+            }        
+        }
+        //check even
+         for(int i=0;i<s.length()-1;i++){
+             if(s.charAt(i)!=s.charAt(i+1)){
+                 continue;
+             }
+             int start=i;
+             int end=i+1;
+             //System.out.println("start  "+start+" end  "+end);
+             while(start-1>=0&&end+1<s.length()){
+                if(s.charAt(start-1)!=s.charAt(end+1)){
+                    if(end-start+1>length){
+                        length=end-start+1;
+                        result=s.substring(start,end+1);
+                    }
+                    break;
+                }
+                 start--;
+                 end++;
+            }
+                   
+            if(end-start+1>length){
+                length=end-start+1;
+                result=s.substring(start,end+1);
+            }       
+                   
+         }          
+                   
+                   
+        return result;
+    }
+    
+    public boolean isPalindrome(String s){
+        for(int i=0;i<s.length()/2;i++){
+            if(s.charAt(i)!=s.charAt(s.length()-i-1)){
+                return false;
+            }
+        }
+        return true;
+    }
+}
