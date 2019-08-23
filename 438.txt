@@ -1,0 +1,29 @@
+class Solution {
+    private List<Integer> result=new LinkedList();
+    public List<Integer> findAnagrams(String s, String p) {
+        if(s.length()<p.length()||s.length()==0){
+            return result;
+        }
+       
+        int pLength=p.length();
+        char tempArray[] = p.toCharArray(); 
+        Arrays.sort(tempArray);
+        p=new String(tempArray);
+        //System.out.println(p);
+        
+
+        
+        for(int i=0;i<s.length()-pLength+1;i++){//get the substring i->pLength+1 
+
+            String fragment=s.substring(i,pLength+i);
+            char tempArray1[] = fragment.toCharArray(); 
+            Arrays.sort(tempArray1);
+            if(p.equals(new String(tempArray1))){
+                result.add(i);
+            }
+
+
+        }
+        return result;
+    }
+}
