@@ -27,3 +27,77 @@ class Solution {
         return result;
     }
 }
+
+
+
+
+
+
+
+
+
+
+class Solution {
+    private List<Integer> result=new LinkedList();
+    public List<Integer> findAnagrams(String s, String p) {
+        if(s.length()<p.length()||s.length()==0){
+            return result;
+        }
+       
+        int pLength=p.length();
+        char tempArray[] = p.toCharArray(); 
+        Map<Character,Integer>map=new HashMap();
+        Map<Character,Integer>map1=new HashMap();
+        
+        for(int i=0;i<pLength;i++){
+            if(map.containsKey(p.charAt(i))){
+               map.put(p.charAt(i),map.get(p.charAt(i))+1); 
+            }else{
+                map.put(p.charAt(i),1);
+            }
+        }
+
+     
+        String fragment=s.substring(0,pLength);
+        System.out.println(fragment);
+        for(int j=0;j<fragment.length();j++){
+            if(map1.containsKey(fragment.charAt(j))){
+                  map1.put(fragment.charAt(j),map1.get(fragment.charAt(j))+1); 
+            }else{
+                  map1.put(fragment.charAt(j),1);
+            }
+        }
+        if(map.equals(map1)){
+            result.add(0);
+        }
+        
+
+        
+        
+        for(int i=1;i<s.length()-pLength+1;i++){
+      
+            
+            map1.put(s.charAt(i-1),map1.get(s.charAt(i-1))-1);
+            if(map1.get(s.charAt(i-1))==0){
+                map1.remove(s.charAt(i-1));
+            }
+            
+            
+           // System.out.println(s.charAt(i+pLength-1));
+            if(map1.containsKey(s.charAt(i+pLength-1))){
+                  map1.put(s.charAt(i+pLength-1),map1.get(s.charAt(i+pLength-1))+1); 
+            }else{
+                  map1.put(s.charAt(i+pLength-1),1);
+            }
+            
+
+            
+            if(map.equals(map1)){
+                result.add(i);
+            }
+               
+
+        }
+        return result;
+    }
+}
