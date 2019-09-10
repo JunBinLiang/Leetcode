@@ -1,0 +1,46 @@
+class Solution {
+    private int result=-1;
+    public String longestCommonPrefix(String[] strs) {
+        if(strs.length==0){
+            return "";
+        }
+        if(strs.length==1){
+            return strs[0];
+        }
+        for(int i=0;i<strs.length-1;i++){
+            int common=helper(strs[i],strs[i+1]);
+            if(result==-1){
+                result=common;
+                continue;
+            }
+            if(result>common){
+                result=common;
+            }
+            
+        }
+        
+        if(result==0){
+            return "";
+        }
+        return strs[0].substring(0,result);
+    }
+    
+    public int helper(String str1,String str2){
+        int counter=0;
+        int length=str1.length();
+        if(length>str2.length()){
+            length=str2.length();
+        }
+        for(int i=0;i<length;i++){
+            if(str1.charAt(i)!=str2.charAt(i)){
+                break;
+            }
+            counter++;
+        }
+        
+        //System.out.println(counter);
+        return counter;
+    }
+    
+
+}
