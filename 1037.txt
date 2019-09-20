@@ -1,0 +1,45 @@
+import javafx.util.Pair; 
+class Solution {
+    public boolean isBoomerang(int[][] points) {
+        //   x              y
+        // points[0][0] points[0][1]
+        // points[1][0] points[1][1]
+        // points[2][0] points[2][1]
+        
+        // same x axis
+        if((points[0][0]==points[1][0])&&(points[1][0]==points[2][0])){
+            return false;
+        }
+        //same y axis
+        if(points[0][1]==points[1][1]&&points[1][1]==points[2][1]){
+            return false;
+        }
+        
+        double oneX=points[0][0];
+        double oneY=points[0][1];
+        double twoX=points[1][0];
+        double twoY=points[1][1];
+        double threeX=points[2][0];
+        double threeY=points[2][1];
+        
+        Pair <Double,Double> pair1 =  new Pair(oneX,oneY);
+        Pair <Double,Double> pair2 =  new Pair(twoX,twoY);
+        Pair <Double,Double> pair3 =  new Pair(threeX,threeY);
+        Set<Pair<Double,Double>>set=new HashSet();
+        set.add(pair1);set.add(pair2);set.add(pair3);
+        if(set.size()==3){
+            if   ((twoY-oneY)/(twoX-oneX)==(threeY-twoY)/(threeX-twoX)){
+                return false;
+            }
+        }
+        
+        if(set.size()==2){
+            //System.out.println("size2");
+            return false;
+            
+        }
+        
+        
+        return true;
+    }
+}
