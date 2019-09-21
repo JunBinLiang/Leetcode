@@ -1,0 +1,50 @@
+class Solution {
+    private ArrayList<Integer> result = new ArrayList<Integer>();
+    private int digits;
+    private int difference;
+    public int[] numsSameConsecDiff(int digits, int difference) {
+        this.digits=digits;
+        this.difference=difference;
+        if(digits==1){
+            return new int[] {0,1,2,3,4,5,6,7,8,9};
+        }
+        for(int i=1;i<=9;i++){
+            if(i-difference>=0){
+                helper(i,i-difference,1);
+            }
+            if(i+difference<10){
+                helper(i,i+difference,1);
+            }
+        }
+        int tobeReturned[]=new int[result.size()];
+        for(int i=0;i<result.size();i++){
+            //System.out.println(result.get(i));
+            tobeReturned[i]=result.get(i);
+        }
+        
+        return tobeReturned;
+    }
+    private void helper(int num,int next,int nth){
+        if(nth==digits){
+            if(result.contains(num)){
+                return;
+            }
+            result.add(num);
+            return;
+        }
+        
+        int newNum=num*10+next;
+        if(next+difference<10){
+             helper(newNum,next+difference,nth+1);
+        }
+        if(next-difference>=0){
+             helper(newNum,next-difference,nth+1);
+        }
+        
+            
+        
+        
+        
+    }
+    
+}
